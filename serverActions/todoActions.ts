@@ -7,7 +7,7 @@ export const getTodoAction = async () =>{
     return await prisma.todo.findMany();
 };
 
-export const createTodoAction = async (data : {title : string , body?: string}) =>{
+export const createTodoAction = async (data : {title : string , body?: string,compleeted: boolean}) =>{
     await prisma.todo.create({data});
 };
 

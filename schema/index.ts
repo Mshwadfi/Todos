@@ -17,6 +17,7 @@ export const todoFormSchema = z.object({
       .max(100, {
         message: "Username must not be longer than 30 characters.",
       }).optional(),
+      compleeted : z.boolean()
   });
 
   export type TodoFormValues = z.infer<typeof todoFormSchema>

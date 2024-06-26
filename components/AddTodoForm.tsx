@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
 import { TodoFormValues , todoFormSchema } from '@/schema';
 import { createTodoAction } from '@/serverActions/todoActions'
+import { Checkbox } from '@/components/ui/checkbox'
 
 
 const AddTodoForm = () => {
@@ -18,8 +19,9 @@ const AddTodoForm = () => {
         await createTodoAction(data)
     };
     const defaultValues : Partial<TodoFormValues> = {
-        title: "Todo",
-        body : "Todo Body"
+        title: " ",
+        body : " ",
+        compleeted: false,
       }
       
     const form = useForm<TodoFormValues>({
@@ -37,14 +39,15 @@ const AddTodoForm = () => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Add Todo</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
+           
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
         <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+
         <FormField
           control={form.control}
           name="title"
@@ -55,8 +58,7 @@ const AddTodoForm = () => {
                 <Input placeholder="play football" {...field} />
               </FormControl>
               <FormDescription>
-                This is your public display name. It can be your real name or a
-                pseudonym. You can only change this once every 30 days.
+                
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -77,8 +79,23 @@ const AddTodoForm = () => {
                 />
               </FormControl>
               <FormDescription>
-                You can <span>@mention</span> other users and organizations to
-                link to them.
+               
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="compleeted"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Checkbox checked={field.value} onCheckedChange={field.onChange} {...field} />
+              </FormControl>
+              <FormLabel>compleeted</FormLabel>
+              <FormDescription>
+                
               </FormDescription>
               <FormMessage />
             </FormItem>

@@ -6,7 +6,8 @@ export default async function Home() {
   
   const defaultValues : Partial<TodoFormValues> = {
     title: "Todo",
-    body : "Todo Body"
+    body : "Todo Body",
+    compleeted: false,
   }
   
   
