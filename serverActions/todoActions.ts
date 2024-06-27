@@ -11,8 +11,12 @@ export const createTodoAction = async (data : {title : string , body?: string,co
     await prisma.todo.create({data});
 };
 
-export const deleteTodoAction = async () =>{
-
+export const deleteTodoAction = async (id : string) =>{
+    await prisma.todo.delete({
+        where: {
+            id,
+        },
+    })
 };
 
 export const updateTodoAction = async () =>{
