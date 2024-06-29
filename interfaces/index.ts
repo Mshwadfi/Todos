@@ -1,7 +1,11 @@
 export interface ITodo {
-    id: string,
+    id?: string,
     title: string;
     compleeted: boolean;
     body?: string | null;
-    createdAt: Date,
+    createdAt?: Date,
 }
+
+export interface IdObject {
+    id: string;
+  }

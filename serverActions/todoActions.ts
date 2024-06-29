@@ -1,24 +1,38 @@
 'use server'
+import { ITodo, IdObject } from '@/interfaces';
 import { PrismaClient } from '@prisma/client'
+import { revalidatePath } from 'next/cache';
 
  const prisma = new PrismaClient();
 
 export const getTodoAction = async () =>{
-    return await prisma.todo.findMany();
+    return await prisma.todo.findMany({orderBy: {
+        createdAt: 'desc',
+    }});
 };
 
 export const createTodoAction = async (data : {title : string , body?: string,compleeted: boolean}) =>{
     await prisma.todo.create({data});
+    revalidatePath('/');
 };
 
-export const deleteTodoAction = async (id : string) =>{
+export const deleteTodoAction = async ({id}: IdObject) =>{
     await prisma.todo.delete({
         where: {
             id,
         },
     })
+    revalidatePath('/');
 };
 
-export const updateTodoAction = async () =>{
-
+export const updateTodoAction = async ({id,title , body , compleeted} : ITodo) =>{
+    await prisma.todo.update({
+        where:{id,},
+        data: {
+            title,
+            body,
+            compleeted,
+        }
+    }),
+    revalidatePath('/');
 };

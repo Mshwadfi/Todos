@@ -31,10 +31,10 @@ import TodoController from "../TodoController"
           {todos.map((todo) => (
             <TableRow key={todo.id}>
               <TableCell className="font-medium">{todo.id}</TableCell>
-              <TableCell>{todo.title.slice(0,30)}</TableCell>
-              <TableCell>{todo.compleeted? <Badge>compleeted</Badge>: <Badge variant='secondary'>uncompleeted</Badge>}</TableCell>
+              <TableCell>{todo.title.length < 30? todo.title : todo?.title?.slice(0,30) + ' . . .'}</TableCell>
+              <TableCell>{todo?.compleeted? <Badge>compleeted</Badge>: <Badge variant='secondary'>uncompleeted</Badge>}</TableCell>
               <TableCell className="flex items-center justify-end gap-2">
-                <TodoController id={todo.id}/>
+                <TodoController todo={todo}/>
               </TableCell>
             </TableRow>
           ))}

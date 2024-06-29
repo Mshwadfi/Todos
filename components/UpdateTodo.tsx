@@ -5,28 +5,29 @@ import { useFieldArray, useForm } from "react-hook-form"
 import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
 import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger,} from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Pen, Plus } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
 import { TodoFormValues , todoFormSchema } from '@/schema';
-import { createTodoAction } from '@/serverActions/todoActions'
+import { updateTodoAction } from '@/serverActions/todoActions'
 import { Checkbox } from '@/components/ui/checkbox'
 import Spinner from './Spinner'
+import { ITodo } from '@/interfaces'
 
 
-const AddTodoForm = () => {
+const UpdateTodoForm = ({todo} : {todo : ITodo}) => {
   const [isFormOpen , setIsFormOpen] = useState(false);
   const [isLoading , setIsloading] = useState(false);
     const onSubmit = async (data: TodoFormValues)=>{
         setIsloading(true)
-        await createTodoAction(data)
+        await updateTodoAction({id: todo.id as string, title : data.title, body: data.body, compleeted: data.compleeted})
         setIsFormOpen(false);
         setIsloading(false);
     };
     const defaultValues : Partial<TodoFormValues> = {
-        title: " ",
-        body : " ",
-        compleeted: false,
+        title: todo.title,
+        body : todo.body as string,
+        compleeted: todo.compleeted,
       }
       
     const form = useForm<TodoFormValues>({
@@ -40,11 +41,11 @@ const AddTodoForm = () => {
       {/* <pre>{JSON.stringify(todos , undefined , 2)}</pre> */}
       <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
       <DialogTrigger asChild className='ml-auto flex flex-end'>
-      <Button> <Plus />New Todo</Button>
+        <Button size={'icon'}> <Pen /> </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add Todo</DialogTitle>
+          <DialogTitle>Update Todo</DialogTitle>
           <DialogDescription>
            
           </DialogDescription>
@@ -119,4 +120,4 @@ const AddTodoForm = () => {
   )
 }
 
-export default AddTodoForm
+export default UpdateTodoForm;
