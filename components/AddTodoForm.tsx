@@ -14,12 +14,13 @@ import { Checkbox } from '@/components/ui/checkbox'
 import Spinner from './Spinner'
 
 
-const AddTodoForm = () => {
+const AddTodoForm = ({userId}:{userId : string }) => {
   const [isFormOpen , setIsFormOpen] = useState(false);
   const [isLoading , setIsloading] = useState(false);
-    const onSubmit = async (data: TodoFormValues)=>{
+  
+  const onSubmit = async (data: TodoFormValues)=>{
         setIsloading(true)
-        await createTodoAction(data)
+        await createTodoAction({...data , user_id: userId})
         setIsFormOpen(false);
         setIsloading(false);
     };
@@ -27,6 +28,7 @@ const AddTodoForm = () => {
         title: " ",
         body : " ",
         compleeted: false,
+        
       }
       
     const form = useForm<TodoFormValues>({

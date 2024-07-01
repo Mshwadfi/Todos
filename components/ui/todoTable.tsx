@@ -28,10 +28,10 @@ import TodoController from "../TodoController"
           </TableRow>
         </TableHeader>
         <TableBody>
-          {todos.map((todo) => (
-            <TableRow key={todo.id}>
-              <TableCell className="font-medium">{todo.id}</TableCell>
-              <TableCell>{todo.title.length < 30? todo.title : todo?.title?.slice(0,30) + ' . . .'}</TableCell>
+          {todos?.map((todo) => (
+            <TableRow key={todo?.id}>
+              <TableCell className="font-medium">{todo?.id}</TableCell>
+              <TableCell>{todo?.title.length < 30? todo?.title : todo?.title?.slice(0,30) + ' . . .'}</TableCell>
               <TableCell>{todo?.compleeted? <Badge>compleeted</Badge>: <Badge variant='secondary'>uncompleeted</Badge>}</TableCell>
               <TableCell className="flex items-center justify-end gap-2">
                 <TodoController todo={todo}/>
@@ -42,7 +42,7 @@ import TodoController from "../TodoController"
         <TableFooter>
           <TableRow>
             <TableCell colSpan={3}>Total</TableCell>
-            <TableCell className="text-right">{todos.length}</TableCell>
+            <TableCell className="text-right">{todos?.length}</TableCell>
           </TableRow>
         </TableFooter>
       </Table>
