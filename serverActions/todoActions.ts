@@ -2,6 +2,7 @@
 import { ITodo, IdObject } from '@/interfaces';
 import { PrismaClient } from '@prisma/client'
 import { revalidatePath } from 'next/cache';
+import { string } from 'zod';
 
  const prisma = new PrismaClient();
 
@@ -24,7 +25,7 @@ export const createTodoAction = async (data : {title : string , body?: string,co
 export const deleteTodoAction = async ({id}: IdObject) =>{
     await prisma.todo.delete({
         where: {
-            id,
+            id : id as string,
         },
     })
     revalidatePath('/');

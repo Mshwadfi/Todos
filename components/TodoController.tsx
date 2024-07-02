@@ -14,7 +14,7 @@ const TodoController = ({todo} : {todo : ITodo}) => {
         <UpdateTodoForm todo={todo}/>
         <Button size={'icon'} variant={'destructive'} onClick={async ()=> {
             setIsloading(true);
-            await deleteTodoAction({id : todo?.id})
+           todo.id && await deleteTodoAction({id : todo?.id})
             setIsloading(false);
         }}> {isLoading? <Spinner /> : <Trash />} </Button>
     </>
