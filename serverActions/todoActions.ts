@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
  const prisma = new PrismaClient();
 
 export const getTodoAction = async (userId : string | null) =>{
-    return await prisma.todo.findMany({
+    return userId && await prisma.todo.findMany({
         where: {
             user_id: userId as string,
         },

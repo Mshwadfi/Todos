@@ -20,14 +20,14 @@ async function main() {
   //   })
   // })
 
-  await prisma.todo.createMany({
-    data: Array.from({length : 30}, ()=>{
-      return {
-        title: faker.lorem.text(),
-        body: faker.lorem.paragraph(),
-    }
-    })
-  })
+  // await prisma.todo.createMany({
+  //   data: Array.from({length : 30}, ()=>{
+  //     return {
+  //       title: faker.lorem.text(),
+  //       body: faker.lorem.paragraph(),
+  //   }
+  //   })
+  // })
 }
 
 main()
