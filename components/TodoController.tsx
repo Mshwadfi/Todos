@@ -10,13 +10,23 @@ const TodoController = ({todo} : {todo : ITodo}) => {
     const [isLoading , setIsloading] = useState(false);
   return (
     <>
-        {/* <Button size={'icon'}> <Pen /> </Button> */}
         <UpdateTodoForm todo={todo}/>
-        <Button size={'icon'} variant={'destructive'} onClick={async ()=> {
-            setIsloading(true);
-           todo.id && await deleteTodoAction({id : todo?.id})
-            setIsloading(false);
-        }}> {isLoading? <Spinner /> : <Trash />} </Button>
+        <Button
+          size={'icon'}
+          variant={'destructive'}
+          onClick={async () => {
+            if (todo?.id) {
+              setIsloading(true);
+              await deleteTodoAction({ id: todo.id });
+              setIsloading(false);
+            } else {
+              console.error("Todo ID is undefined");
+            }
+          }}
+        >
+  {isLoading ? <Spinner /> : <Trash />}
+</Button>
+
     </>
   )
 }
